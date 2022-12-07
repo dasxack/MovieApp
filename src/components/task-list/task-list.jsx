@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import Task from '../task/task';
 import PropTypes from 'prop-types';
 import './task-list.css';
