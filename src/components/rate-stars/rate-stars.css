@@ -1,0 +1,8 @@
+ul.ant-rate {
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: 15px;
+}
+.ant-rate-star:not(:last-child) {
+  margin-right: 3px;
+}

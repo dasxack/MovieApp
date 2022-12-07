@@ -1,0 +1,93 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  background-color: rgba(15, 2, 37, 0.993) !important;
+  /* background: url('./img/wp2789443.jpg');
+  background-size: 100vw 100vw; */
+}
+.noInternet {
+  margin: 0 auto;
+  text-align: center;
+  width: 400px;
+  height: 300px;
+  background-color: white;
+}
+.noInternet h1 {
+  padding-top: 50px;
+}
+
+.moviapp {
+  max-width: 1010px;
+  min-height: 500px;
+
+  margin: 0 auto;
+  padding: 0;
+  background-color: white;
+}
+.movi-list-item {
+  max-width: 454px;
+  margin: 0 24px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  box-shadow: 1px 3px 4px 0 rgb(212, 203, 203);
+}
+.movi-list {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.main {
+  padding: 19px 0;
+}
+.view {
+  display: flex;
+  flex-direction: column;
+}
+
+.poster img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* .movi-list-item .view h2 {
+  line-height: 28px;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 12px 0 7px 20px;
+} */
+.spin {
+  width: 50px;
+  margin: 0 auto;
+}
+.ant-pagination {
+  display: flex;
+  justify-content: center;
+}
+.notFound {
+  margin: 0 250px;
+  width: 500px;
+  height: 500px;
+}
+@media (max-width: 420px) {
+  .poster img {
+    max-width: 60px;
+    max-height: 91px;
+  }
+  .moviapp .form {
+    margin: 13px 0;
+
+    height: 40px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+    padding-left: 12px;
+    margin: 0 24px;
+  }
+}

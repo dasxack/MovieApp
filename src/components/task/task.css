@@ -1,0 +1,63 @@
+.view .description,
+.view .view-buttons,
+.view .date {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.title_container {
+  display: flex;
+  margin-top: 7px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.vote {
+  vertical-align: middle;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 9px;
+  border-radius: 50%;
+}
+h2 {
+  max-width: 220px;
+  padding-left: 20px;
+  font-size: 20px;
+  line-height: 25px;
+  margin: 0;
+}
+.view-buttons button:hover {
+  color: white;
+  background-color: rgba(15, 2, 37, 0.993);
+}
+.view-buttons {
+  margin-top: 9px;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-bottom: 7px;
+}
+.view-buttons button {
+  margin-bottom: 3px;
+  font-size: 12px;
+  padding: 0;
+  margin-right: 3px;
+  white-space: pre;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 7%;
+  cursor: pointer;
+}
+.view-buttons button {
+  padding-right: 3px;
+  padding-left: 3px;
+}
+.view .description {
+  font-size: 12px;
+  font-weight: 400;
+}
+@media (max-width: 468px) {
+  .poster img {
+    max-width: 60px;
+    max-height: 91px;
+  }
+}

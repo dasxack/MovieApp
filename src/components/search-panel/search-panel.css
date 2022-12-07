@@ -1,0 +1,14 @@
+.moviapp .form {
+  margin: 13px 0;
+
+  height: 40px;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+  padding-left: 12px;
+  margin: 0 24px;
+}
+.moviapp .input-container {
+  /* max-width: 938px; */
+  display: flex;
+  flex-direction: column;
+}
