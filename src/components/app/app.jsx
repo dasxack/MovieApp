@@ -8,7 +8,7 @@ import { Alert, Spin, Pagination } from 'antd';
 import 'antd/dist/antd.min.css';
 import { debounce } from 'lodash';
 import MoveServices from '../../services';
-import TaskList from '../task-list';
+import MovieList from '../movie-list';
 import Header from '../header';
 export default class App extends React.Component {
   moveServices = new MoveServices();
@@ -34,32 +34,36 @@ export default class App extends React.Component {
       });
     }
 
-    this.updateMovies();
+    this.getPopularMovie();
     this.getGenresList();
   }
 
-  updateMovies = () => {
+  getPopularMovie = () => {
     this.setState({
       loading: true,
       totalPages: 0,
       numberPage: 1,
     });
     this.moveServices
-      .popularMovie()
+      .getPopularMovie()
       .then((move) => {
+        const res = move.total_results;
+
         this.setState({
           loading: false,
           isErrors: false,
           movieData: move.results,
-          totalPages: move.total_pages,
+          totalPages: res,
         });
       })
       .catch(this.onError);
   };
   debounceMovie = debounce((e) => {
+    const searchMovies = this.state.nameMovie;
+
     e.length === 1 || e.length === 0
       ? this.moveServices
-          .popularMovie()
+          .getPopularMovie()
           .then((move) => {
             this.setState({
               loading: false,
@@ -70,18 +74,20 @@ export default class App extends React.Component {
           })
           .catch(this.onError)
       : this.moveServices
-          .searchMovies(e)
+          .getSearchMovies(searchMovies)
           .then((res) => {
             this.setState({
-              isErrors: false,
               loading: false,
+              isErrors: false,
               movieData: res.results,
               totalPages: res.total_pages,
+
+              numberPage: 1,
             });
           })
           .catch(this.onError);
   }, 1000);
-  searchMovie = (e) => {
+  getSearchMovies = (e) => {
     this.setState({
       loading: true,
       nameMovie: e,
@@ -118,7 +124,7 @@ export default class App extends React.Component {
 
     nameMovie === '' && tabPane === '1'
       ? this.moveServices
-          .popularMovie(page)
+          .getPopularMovie(page)
           .then((move) => {
             this.setState({
               loading: false,
@@ -148,13 +154,14 @@ export default class App extends React.Component {
             });
           })
       : this.moveServices
-          .searchMovies(nameMovie, page)
+          .getSearchMovies(nameMovie, page)
 
           .then((move) => {
             this.setState({
               loading: false,
               isErrors: false,
               movieData: move.results,
+              totalPages: move.total_pages,
               nameMovie: nameMovie,
               numberPage: page,
             });
@@ -213,14 +220,25 @@ export default class App extends React.Component {
           numberPage: 1,
         },
         () => {
-          this.updateMovies();
+          this.getPopularMovie();
         }
       );
     }
   };
   render() {
-    const { loading, movieData, isErrors, errorMessage, numberPage, totalPages, genresList, guestSessionId, tabPane } =
-      this.state;
+    const {
+      loading,
+      movieData,
+      isErrors,
+      errorMessage,
+      numberPage,
+      totalPages,
+      genresList,
+      guestSessionId,
+      tabPane,
+      nameMovie,
+    } = this.state;
+    const resTotalPages = totalPages * 20 > 500 * 20 ? 500 : totalPages;
     const error = isErrors ? <Alert message="Error" description={errorMessage} type="error" showIcon /> : null;
     const context = { genresList, guestSessionId };
     const spinner = loading ? (
@@ -228,7 +246,7 @@ export default class App extends React.Component {
         <Spin tip="Loading..." size="large" className="spin" />
       </div>
     ) : null;
-    const content = !loading || !isErrors ? <TaskList moveData={movieData} /> : null;
+    const content = !loading || !isErrors ? <MovieList moveData={movieData} /> : null;
     const notFound =
       movieData.length === 0 && !isErrors && !loading ? <Alert message="По вашемузапросу ничего не найдено" /> : null;
     const pagination =
@@ -236,15 +254,17 @@ export default class App extends React.Component {
         <Pagination
           defaultCurrent={1}
           current={numberPage}
-          total={totalPages * 10}
+          total={resTotalPages * 20}
           showSizeChanger={false}
           onChange={this.changePage}
+          pageSize={20}
         />
       ) : null;
-    const gg = window.navigator.onLine;
+    const checkingTheInternet = window.navigator.onLine;
 
-    const search = tabPane === '1' ? <SearchPanel searchMovie={this.searchMovie} /> : null;
-    return gg ? (
+    const search =
+      tabPane === '1' ? <SearchPanel getSearchMovies={this.getSearchMovies} nameMovie={nameMovie} /> : null;
+    return checkingTheInternet ? (
       <MovieContext.Provider value={context}>
         <section className="moviapp">
           <Header changeTab={this.changeTab} />
@@ -261,7 +281,7 @@ export default class App extends React.Component {
     ) : (
       <div className="noInternet">
         <h1>Нуууууу????</h1>
-        Может стои интернет включить??
+        Может стоит интернет включить??
       </div>
     );
   }

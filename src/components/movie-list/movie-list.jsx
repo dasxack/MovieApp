@@ -1,24 +1,24 @@
 import React from 'react';
-import Task from '../task/task';
+import MovieCard from '../movie-card';
 import PropTypes from 'prop-types';
-import './task-list.css';
-const TaskList = ({ moveData }) => {
+import './movie-list.css';
+const MovieList = ({ moveData }) => {
   const elements = moveData.map((el) => {
     const { id, ...itemProps } = el;
 
     return (
       <li className="movi-list-item" key={id}>
-        <Task {...itemProps} id={id} />
+        <MovieCard {...itemProps} id={id} />
       </li>
     );
   });
   return <ul className="movi-list">{elements}</ul>;
 };
-TaskList.defaultProps = {
+MovieList.defaultProps = {
   moveData: [],
 };
 
-TaskList.propTypes = {
+MovieList.propTypes = {
   moveData: PropTypes.array,
 };
-export default TaskList;
+export default MovieList;

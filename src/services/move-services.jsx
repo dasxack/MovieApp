@@ -8,14 +8,14 @@ export default class MoveServices {
     }
     return await res.json();
   }
-  popularMovie = async (page = 1) => {
+  getPopularMovie = async (page = 1) => {
     const res = await this.getResults(
       `https://api.themoviedb.org/3/movie/popular?api_key=bcac95abbfe6a45c7e1a514a356f6586&language=en-US&page=${page}`
     );
     return res;
   };
 
-  searchMovies = async (nameMovie = 'return', page = 1) => {
+  getSearchMovies = async (nameMovie, page = 1) => {
     const res = await this.getResults(
       `https://api.themoviedb.org/3/search/movie?api_key=bcac95abbfe6a45c7e1a514a356f6586&language=en-US&query=${nameMovie}&page=${page}&include_adult=false`
     );

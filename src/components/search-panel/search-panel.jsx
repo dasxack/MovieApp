@@ -1,9 +1,10 @@
 import React from 'react';
 import './search-panel.css';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash';
 export default class SearchPanel extends React.Component {
   render() {
-    const { searchMovie } = this.props;
+    const { getSearchMovies, nameMovie } = this.props;
 
     return (
       <div className="input-container">
@@ -11,16 +12,19 @@ export default class SearchPanel extends React.Component {
           type="text"
           className="form"
           placeholder="Type to search..."
-          onChange={(e) => searchMovie(e.target.value)}
+          onChange={(e) => getSearchMovies(e.target.value)}
+          value={nameMovie}
         />
       </div>
     );
   }
 }
 SearchPanel.defaultProps = {
-  searchMovie: () => {},
+  getSearchMovies: () => {},
+  nameMovie: '',
 };
 
 SearchPanel.propTypes = {
-  searchMovie: PropTypes.func,
+  getSearchMovies: PropTypes.func,
+  nameMovie: PropTypes.string,
 };

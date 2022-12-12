@@ -3,11 +3,11 @@ import { cahgeText } from './utils';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import { MovieContext } from '../movie-context/movie-context';
-import './task.css';
+import './movie-card.css';
 import RateStars from '../rate-stars/rate-stars';
 import pictureDefault from './img/Tom.jpg';
 
-export default class Task extends React.Component {
+export default class MovieCard extends React.Component {
   roundVote = (vote) => {
     return vote.toFixed(1);
   };
@@ -71,7 +71,7 @@ export default class Task extends React.Component {
     );
   }
 }
-Task.defaultProps = {
+MovieCard.defaultProps = {
   genre_ids: [],
   poster_path: '',
   title: 'Нет названия',
@@ -81,7 +81,7 @@ Task.defaultProps = {
   id: 0,
 };
 
-Task.propTypes = {
+MovieCard.propTypes = {
   genre_ids: PropTypes.array,
   poster_path: PropTypes.string,
   title: PropTypes.string,
